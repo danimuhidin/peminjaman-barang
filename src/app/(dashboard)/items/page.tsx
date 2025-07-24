@@ -193,7 +193,18 @@ export default function ItemsPage() {
 
       {/* Modal Tambah/Edit */}
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent
+          // Kelas yang direvisi untuk posisi atas dengan sedikit padding
+          className="sm:max-w-[425px]
+                 data-[state=open]:!slide-in-from-top
+                 data-[state=open]:!md:slide-in-from-bottom
+                 data-[state=open]:!top-[20%]
+                 data-[state=open]:!bottom-[unset]
+                 data-[state=open]:!md:top-[50%]
+                 data-[state=open]:!md:bottom-[unset]
+                 md:top-[50%] md:translate-y-[-50%] md:left-[50%] md:translate-x-[-50%]
+                 rounded-b-lg sm:rounded-lg rounded-t-lg"
+        >
           <DialogHeader>
             <DialogTitle>{editingItemId ? 'Edit Barang' : 'Tambah Barang Baru'}</DialogTitle>
           </DialogHeader>
@@ -218,7 +229,17 @@ export default function ItemsPage() {
 
       {/* Modal Konfirmasi Hapus */}
       <AlertDialog open={isConfirmOpen} onOpenChange={setIsConfirmOpen}>
-        <AlertDialogContent>
+        <AlertDialogContent
+          // Kelas yang direvisi untuk posisi atas dengan sedikit padding
+          className="data-[state=open]:!slide-in-from-top
+                 data-[state=open]:!md:slide-in-from-bottom
+                 data-[state=open]:!top-[20%]
+                 data-[state=open]:!bottom-[unset]
+                 data-[state=open]:!md:top-[50%]
+                 data-[state=open]:!md:bottom-[unset]
+                 md:top-[50%] md:translate-y-[-50%] md:left-[50%] md:translate-x-[-50%]
+                 rounded-b-lg sm:rounded-lg rounded-t-lg"
+        >
           <AlertDialogHeader>
             <AlertDialogTitle>Apakah Anda yakin?</AlertDialogTitle>
             <AlertDialogDescription>

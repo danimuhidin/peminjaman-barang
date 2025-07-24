@@ -179,7 +179,18 @@ export default function UsersPage() {
       {/* Sisa JSX untuk Button dan Dialog tidak perlu diubah, sudah benar */}
       <Button className="fixed bottom-24 right-8 rounded-full h-16 w-16 text-white text-3xl shadow-lg bg-blue-600 hover:bg-blue-700" onClick={handleOpenAddModal}>+</Button>
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="sm:max-w-[425px] ..."> {/* ClassName dipersingkat untuk keringkasan */}
+        <DialogContent
+          // Kelas yang direvisi untuk posisi atas dengan sedikit padding
+          className="sm:max-w-[425px]
+                 data-[state=open]:!slide-in-from-top
+                 data-[state=open]:!md:slide-in-from-bottom
+                 data-[state=open]:!top-[20%]
+                 data-[state=open]:!bottom-[unset]
+                 data-[state=open]:!md:top-[50%]
+                 data-[state=open]:!md:bottom-[unset]
+                 md:top-[50%] md:translate-y-[-50%] md:left-[50%] md:translate-x-[-50%]
+                 rounded-b-lg sm:rounded-lg rounded-t-lg"
+        >
           <DialogHeader>
             <DialogTitle>{editingUserId ? 'Edit Peminjam' : 'Tambah Peminjam'}</DialogTitle>
           </DialogHeader>
@@ -195,7 +206,17 @@ export default function UsersPage() {
         </DialogContent>
       </Dialog>
       <AlertDialog open={isConfirmOpen} onOpenChange={setIsConfirmOpen}>
-        <AlertDialogContent className="..."> {/* ClassName dipersingkat */}
+        <AlertDialogContent
+          // Kelas yang direvisi untuk posisi atas dengan sedikit padding
+          className="data-[state=open]:!slide-in-from-top
+                 data-[state=open]:!md:slide-in-from-bottom
+                 data-[state=open]:!top-[20%]
+                 data-[state=open]:!bottom-[unset]
+                 data-[state=open]:!md:top-[50%]
+                 data-[state=open]:!md:bottom-[unset]
+                 md:top-[50%] md:translate-y-[-50%] md:left-[50%] md:translate-x-[-50%]
+                 rounded-b-lg sm:rounded-lg rounded-t-lg"
+        >
           <AlertDialogHeader>
             <AlertDialogTitle>Apakah Anda yakin?</AlertDialogTitle>
             <AlertDialogDescription>Tindakan ini akan menghapus data peminjam secara permanen.</AlertDialogDescription>

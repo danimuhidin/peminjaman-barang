@@ -196,7 +196,18 @@ export default function LoansPage() {
       <Button onClick={handleOpenAddModal} className="fixed bottom-24 right-8 rounded-full h-16 w-16 text-white text-3xl shadow-lg bg-blue-600 hover:bg-blue-700">+</Button>
       
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent
+          // Kelas yang direvisi untuk posisi atas dengan sedikit padding
+          className="sm:max-w-[425px]
+                 data-[state=open]:!slide-in-from-top
+                 data-[state=open]:!md:slide-in-from-bottom
+                 data-[state=open]:!top-[35%]
+                 data-[state=open]:!bottom-[unset]
+                 data-[state=open]:!md:top-[50%]
+                 data-[state=open]:!md:bottom-[unset]
+                 md:top-[50%] md:translate-y-[-50%] md:left-[50%] md:translate-x-[-50%]
+                 rounded-b-lg sm:rounded-lg rounded-t-lg"
+        >
           <DialogHeader><DialogTitle>Buat Peminjaman Baru</DialogTitle></DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid w-full items-center gap-1.5">
@@ -257,7 +268,17 @@ export default function LoansPage() {
       </Dialog>
       
       <AlertDialog open={isConfirmOpen} onOpenChange={setIsConfirmOpen}>
-        <AlertDialogContent>
+        <AlertDialogContent
+          // Kelas yang direvisi untuk posisi atas dengan sedikit padding
+          className="data-[state=open]:!slide-in-from-top
+                 data-[state=open]:!md:slide-in-from-bottom
+                 data-[state=open]:!top-[20%]
+                 data-[state=open]:!bottom-[unset]
+                 data-[state=open]:!md:top-[50%]
+                 data-[state=open]:!md:bottom-[unset]
+                 md:top-[50%] md:translate-y-[-50%] md:left-[50%] md:translate-x-[-50%]
+                 rounded-b-lg sm:rounded-lg rounded-t-lg"
+        >
           <AlertDialogHeader>
             <AlertDialogTitle>Konfirmasi Pengembalian</AlertDialogTitle>
             <AlertDialogDescription>Anda yakin ingin menandai barang ini sebagai sudah dikembalikan ?</AlertDialogDescription>

@@ -22,7 +22,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen font-sans p-4">
+    <div className="flex flex-col items-center min-h-screen font-sans p-4 mt-8">
       <h1 className="text-4xl font-bold text-white mb-8">Login</h1>
       <form onSubmit={handleSubmit} className="bg-gray-300 p-10 rounded-lg shadow-xl w-full max-w-md">
         <div className="mb-6">
