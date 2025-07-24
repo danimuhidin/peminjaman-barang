@@ -1,0 +1,50 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Konfigurasi datasource
+// Prisma akan menggunakan environment variable DATABASE_URL
+// Ini memungkinkan kita menukar database antara dev dan prod
+datasource db {
+  provider = "sqlite" // Gunakan "postgresql" atau "mysql" untuk production
+  url      = env("DATABASE_URL")
+}
+
+// Selanjutnya, kita akan definisikan model di bawah ini...
+model User {
+  id    Int     @id @default(autoincrement())
+  name  String
+  // Relasi: Satu User bisa memiliki banyak Loan
+  loans Loan[]
+}
+
+// MODEL UNTUK TABEL ITEM
+model Item {
+  id    Int     @id @default(autoincrement())
+  name  String
+  // Relasi: Satu Item bisa ada di banyak Loan
+  loans Loan[]
+}
+
+// MODEL UNTUK TABEL LOAN
+model Loan {
+  id         Int      @id @default(autoincrement())
+  qty        Int
+  startDate  DateTime @map("start_date")
+  endDate    DateTime? // Tanda tanya (?) berarti opsional (bisa null)
+  status     Int      @default(1) // 1: dipinjam, 0: dikembalikan
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  // Kunci asing dan relasi
+  userId Int   @map("user_id")
+  user   User  @relation(fields: [userId], references: [id])
+
+  itemId Int   @map("item_id")
+  item   Item  @relation(fields: [itemId], references: [id])
+
+  // Opsi untuk memastikan nama kolom di database sesuai permintaan awal
+  @@map("loan")
+}
