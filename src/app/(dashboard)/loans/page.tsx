@@ -260,7 +260,7 @@ export default function LoansPage() {
             </div>
             <div className="grid w-full items-center gap-1.5">
               <Label htmlFor="quantity">Jumlah</Label>
-              <Input id="quantity" type="number" value={quantity} onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))} min="1"/>
+              <Input id="quantity" type="number" value={quantity} onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}/>
             </div>
           </div>
           <DialogFooter><Button onClick={handleSaveLoan}>Simpan Peminjaman</Button></DialogFooter>
