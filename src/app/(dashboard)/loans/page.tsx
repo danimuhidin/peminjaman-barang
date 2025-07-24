@@ -44,17 +44,17 @@ export default function LoansPage() {
   const [loans, setLoans] = useState<Loan[]>([]);
   const [users, setUsers] = useState<User[]>([]);
   const [items, setItems] = useState<Item[]>([]);
-  
+
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState('');
   const [selectedItemId, setSelectedItemId] = useState('');
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState('1');
   const [startDate, setStartDate] = useState<Date | undefined>();
   const [endDate, setEndDate] = useState<Date | undefined>();
-  
+
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const [returningLoanId, setReturningLoanId] = useState<number | null>(null);
 
@@ -94,14 +94,21 @@ export default function LoansPage() {
   const handleOpenAddModal = () => {
     setSelectedUserId('');
     setSelectedItemId('');
-    setQuantity(1);
+    setQuantity('1');
     setStartDate(undefined);
     setEndDate(undefined);
     setIsModalOpen(true);
   };
 
   const handleSaveLoan = async () => {
-    if (!selectedUserId || !selectedItemId || quantity <= 0 || !startDate || !endDate) {
+     const finalQuantity = parseInt(quantity) || 0;
+
+      if (finalQuantity <= 0) {
+        alert('Jumlah harus diisi dan lebih dari 0.');
+        return;
+      }
+
+    if (!selectedUserId || !selectedItemId || !startDate || !endDate) {
       alert('Harap lengkapi semua field, termasuk tanggal mulai dan akhir.');
       return;
     }
@@ -124,7 +131,7 @@ export default function LoansPage() {
       });
 
       if (!response.ok) throw new Error('Gagal membuat peminjaman baru');
-      
+
       setIsModalOpen(false);
       fetchInitialData();
     } catch (err) {
@@ -148,7 +155,7 @@ export default function LoansPage() {
       });
 
       if (!response.ok) throw new Error('Gagal mengembalikan barang');
-      
+
       setIsConfirmOpen(false);
       setReturningLoanId(null);
       fetchInitialData();
@@ -156,7 +163,7 @@ export default function LoansPage() {
       alert('Error: ' + (err instanceof Error ? err.message : 'Unknown error'));
     }
   };
-  
+
   if (isLoading) return <div className="text-center text-white p-10">Loading data...</div>;
   if (error) return <div className="text-center text-red-500 p-10">Error: {error}</div>;
 
@@ -194,7 +201,7 @@ export default function LoansPage() {
       </div>
 
       <Button onClick={handleOpenAddModal} className="fixed bottom-24 right-8 rounded-full h-16 w-16 text-white text-3xl shadow-lg bg-blue-600 hover:bg-blue-700">+</Button>
-      
+
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
         <DialogContent
           // Kelas yang direvisi untuk posisi atas dengan sedikit padding
@@ -260,13 +267,18 @@ export default function LoansPage() {
             </div>
             <div className="grid w-full items-center gap-1.5">
               <Label htmlFor="quantity">Jumlah</Label>
-              <Input id="quantity" type="number" value={quantity} onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}/>
+              <Input
+                id="quantity"
+                type="number"
+                value={quantity}
+                onChange={(e) => setQuantity(e.target.value)}
+              />
             </div>
           </div>
           <DialogFooter><Button onClick={handleSaveLoan}>Simpan Peminjaman</Button></DialogFooter>
         </DialogContent>
       </Dialog>
-      
+
       <AlertDialog open={isConfirmOpen} onOpenChange={setIsConfirmOpen}>
         <AlertDialogContent
           // Kelas yang direvisi untuk posisi atas dengan sedikit padding
