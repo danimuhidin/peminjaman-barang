@@ -8,8 +8,13 @@ generator client {
 // Konfigurasi datasource
 // Prisma akan menggunakan environment variable DATABASE_URL
 // Ini memungkinkan kita menukar database antara dev dan prod
+// datasource db {
+  // provider = "sqlite"
+  // url      = env("DATABASE_URL")
+// }
+
 datasource db {
-  provider = "sqlite" // Gunakan "postgresql" atau "mysql" untuk production
+  provider = "postgresql" // Pastikan sudah seperti ini
   url      = env("DATABASE_URL")
 }
 
